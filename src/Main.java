@@ -73,6 +73,9 @@ public class Main {
                 case Company -> {
                     displayCompanyMenu();
                 }
+                case Programmer -> {
+                    displayProgrammerMenu();
+                }
                 case Unauthorized -> {
                     System.out.println("Incorrect Credentials, try again?");
                     System.out.println("Type yes or no");
@@ -358,7 +361,7 @@ public class Main {
 
             switch (command) {
                 case "add" -> addProject();
-                case "project" -> System.out.println("Profile");
+                case "project" -> displayProjectMenu();
                 case "info" -> displayInfo(commands.getCompanyMenuCommands());
                 case "list" -> accounts.displayProjects();
                 case "delete" -> deleteProject();
@@ -407,23 +410,108 @@ public class Main {
 
     public static void deleteProject() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Name of the project");
+        System.out.print("Name of the project: ");
         String name = scanner.nextLine();
         accounts.deleteProject(name);
         System.out.println("Project deleted");
     }
 
     public static void displayProjectMenu() {
-        System.out.println("Project menu. Type info to see the commands");
         Scanner scanner = new Scanner(System.in);
-        Boolean back = false;
+        System.out.print("Please enter the name of the project: ");
+        String projectName = scanner.nextLine();
+
+        if (!accounts.projectExists(projectName)) {
+            System.out.println("Project doesn't exist");
+            return;
+        }
+
+
+        System.out.println("Project menu. Type info to see the commands");
+        boolean back = false;
 
         while (!back) {
             System.out.println("Type a command: ");
             String command = scanner.nextLine();
 
             switch (command) {
-                case "modify" -> System.out.println("Modify");
+                case "modify" -> modifyProject(accounts.getProject(projectName));
+                case "display" -> accounts.displayProgrammersOnProject(projectName);
+                case "status" -> accounts.displayProjectStatus(projectName);
+                case "info" -> displayInfo(commands.getProjectMenuCommands());
+                case  "back" -> back = true;
+
+            }
+        }
+    }
+
+    public static void modifyProject(Project project) {
+        Scanner scanner = new Scanner(System.in);
+        accounts.deleteProject(project.getName());
+        System.out.println("Type info to see the which details can be changed");
+        boolean back = false;
+
+        while (!back) {
+            System.out.print("Please enter a command: ");
+            String command = scanner.nextLine();
+
+            switch (command) {
+                case "name" -> {
+                    System.out.print("Please enter the new name: ");
+                    String name = scanner.nextLine();
+                    project.setName(name);
+                }
+                case "deadline" -> {
+                    System.out.print("Please enter the new deadline: ");
+                    String deadline = scanner.nextLine();
+                    project.setDeadline(deadline);
+                }
+                case "budget" -> {
+                    System.out.print("Please enter the new budget: ");
+                    int budget = scanner.nextInt();
+                    project.setBudget(budget);
+                }
+                case "info" -> displayInfo(commands.getProjectMenuCommands());
+                case "back" -> back = true;
+            }
+        }
+
+        System.out.println("The new details are: ");
+        project.displayInfo();
+        accounts.addProject(project);
+    }
+
+    public static void displayProgrammerMenu() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Programmer menu! Type info to see the commands");
+
+        boolean back = false;
+        while (!back && !quit) {
+            System.out.println("Type a command: ");
+            String command = scanner.nextLine();
+
+            switch (command) {
+                case "add" -> addSkill();
+                case "info" -> displayInfo(commands.getProgrammerMenuCommands());
+                case "list" -> accounts.displaySkills();
+                case "task" -> accounts.completeTask();
+                case "logout" -> back = true;
+                case "quit" -> quit = true;
+            }
+        }
+    }
+
+    public static void addSkill() {
+        Scanner scanner = new Scanner(System.in);
+        boolean back = false;
+        while (!back) {
+            System.out.println("Add a skill: ");
+            String skill = scanner.nextLine();
+            accounts.addSkill(skill);
+            System.out.println("Add another skill? Type yes or no");
+            String command = scanner.nextLine();
+            if (command.equals("no")) {
+                back = true;
             }
         }
     }

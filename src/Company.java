@@ -64,6 +64,49 @@ public class Company extends Account {
         }
     }
 
+    public boolean projectExist(String projectName) {
+        for (Project project : projects) {
+            if (project.name.equals(projectName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void displayProgrammersOnProject(String projectName) {
+        for (Project project : projects) {
+            if (project.name.equals(projectName)) {
+                project.displayProgrammers();
+            }
+        }
+    }
+
+    public Project getProject(String projectName) {
+        for (Project project : projects) {
+            if (project.name.equals(projectName)) {
+                return project;
+            }
+        }
+        System.out.println("Project not found");
+        return null;
+    }
+
+    public void displayProjectStatus(String projectName) {
+        for (Project project : projects) {
+            if (project.name.equals(projectName)) {
+                project.displayStatus();
+            }
+        }
+    }
+
+    public void completeTask(String projectName) {
+        for (Project project : projects) {
+            if (project.name.equals(projectName)) {
+                System.out.println("DDDDDD");
+                project.completeTask();
+            }
+        }
+    }
     public void displayInfo() {
         System.out.println();
         System.out.println("-------------------");

@@ -4,12 +4,11 @@ public class Programmer extends Account {
     private String city;
     private  String country;
     private ArrayList<String> programmingLanguages = new ArrayList<>();
-    private ArrayList<String> pendingTasks = new ArrayList<>();
-    private ArrayList<String> doneTasks = new ArrayList<>();
     private ArrayList<String> skills = new ArrayList<>();
     private String schedule;
     private boolean assigned = false;
     private Project project;
+    private String companyName;
 
 
 
@@ -44,14 +43,6 @@ public class Programmer extends Account {
         programmingLanguages.add(programmingLanguage);
     }
 
-    public void addTask(String task) {
-        pendingTasks.add(task);
-    }
-
-    public void addDoneTask(String task) {
-        pendingTasks.remove(task);
-        doneTasks.add(task);
-    }
 
     public String getCountry() {
         return country;
@@ -69,10 +60,27 @@ public class Programmer extends Account {
         super.setPassword(password);
     }
 
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
     public void assignProject(Project project) {
         this.project = project;
         assigned = true;
     }
+
 
     public boolean isAssigned() {
         return assigned;
@@ -100,4 +108,16 @@ public class Programmer extends Account {
         }
         System.out.println("-------------------");
     }
+
+    public void displayProjectInfo() {
+        project.displayInfo();
+    }
+
+    public void displaySkills() {
+        System.out.println("Skills: ");
+        for (String skill : skills) {
+            System.out.println("    -"+skill);
+        }
+    }
+
 }

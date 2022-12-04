@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -183,5 +182,46 @@ public class Accounts {
 
     public void displayProjects() {
         companies.get(currentIndex).displayProjects();
+    }
+
+    public Boolean projectExists(String projectName) {
+        return companies.get(currentIndex).projectExist(projectName);
+    }
+
+    public Project getProject(String projectName) {
+        return companies.get(currentIndex).getProject(projectName);
+    }
+    public void displayProgrammersOnProject(String projectName) {
+        companies.get(currentIndex).displayProgrammersOnProject(projectName);
+    }
+
+    public void displayProjectStatus(String projectName) {
+        companies.get(currentIndex).displayProjectStatus(projectName);
+    }
+
+    public void assignProject(Project project, String programmerName) {
+        for (Programmer programmer : programmers) {
+            if (programmer.getName().equals(programmerName)) {
+                programmer.setProject(project);
+                programmer.setCompanyName(companies.get(currentIndex).getName());
+            }
+        }
+    }
+
+    public void completeTask() {
+        for (Company company : companies) {
+            if (company.getName().equals(programmers.get(currentIndex).getCompanyName())) {
+                company.completeTask(programmers.get(currentIndex).getProject().getName());
+                programmers.get(currentIndex).setProject(company.getProject(programmers.get(currentIndex).getProject().getName()));
+            }
+        }
+    }
+
+    public void displaySkills() {
+        programmers.get(currentIndex).displaySkills();
+    }
+
+    public void addSkill(String skill) {
+        programmers.get(currentIndex).addSkill(skill);
     }
 }

@@ -10,6 +10,9 @@ public class Project {
     private String schedule;
     private int numberOfProgrammers;
     private Accounts accounts = Accounts.getInstance();
+    private int totalTasks = Math.round((float) (Math.random() * 10));
+    private int completedTasks = 0;
+
 
     public Project() {
     }
@@ -33,6 +36,9 @@ public class Project {
         }
 
         System.out.println("Budget: " + budget);
+        System.out.println("Schedule: " + schedule);
+        System.out.println("Total tasks: " + totalTasks);
+        System.out.println("Completed tasks: " + completedTasks);
     }
 
 
@@ -89,6 +95,26 @@ public class Project {
         return numberOfProgrammers;
     }
 
+    public int getRemainingTasks() {
+        return totalTasks - completedTasks;
+    }
+
+    public void displayStatus() {
+        System.out.println("Deadline: " + deadline);
+        System.out.println("Total tasks: " + totalTasks);
+        System.out.println("Completed tasks: " + completedTasks);
+        System.out.println("Remaining tasks: " + getRemainingTasks());
+        System.out.println();
+    }
+
+    public void completeTask() {
+        if (totalTasks - completedTasks > 0) {
+            completedTasks++;
+            System.out.println(completedTasks);
+        }
+        System.out.println("Task completed!" + " Remaining tasks: " + getRemainingTasks());
+    }
+
     public void setNumberOfProgrammers(int numberOfProgrammers) {
         this.numberOfProgrammers = numberOfProgrammers;
         assignProgrammers();
@@ -100,6 +126,7 @@ public class Project {
                 if (!Collections.disjoint(skills, programmer.getSkills()) && programmers.size() < numberOfProgrammers) {
                     programmer.assignProject(this);
                     programmers.add(programmer);
+                    accounts.assignProject(this, programmer.getName());
                 }
             }
         }

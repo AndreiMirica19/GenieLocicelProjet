@@ -9,6 +9,8 @@ public class Commands {
     private ArrayList<String> modifyCompanyCommands = new ArrayList<>();
     private ArrayList<String> companyMenuCommands = new ArrayList<>();
     private ArrayList<String> projectMenuCommands = new ArrayList<>();
+    private ArrayList<String> modifyProjectCommands = new ArrayList<>();
+    private ArrayList<String> programmerMenuCommands = new ArrayList<>();
 
     public Commands() {
         addAdminCommands();
@@ -19,6 +21,8 @@ public class Commands {
         addModifyCompanyCommands();
         addCompanyMenuCommands();
         addProjectMenuCommands();
+        addModifyProjectCommands();
+        addProgrammerMenuCommands();
     }
 
     private void addMainMenuCommands() {
@@ -75,10 +79,29 @@ public class Commands {
     private void addProjectMenuCommands() {
         projectMenuCommands.add("Type modify to modify the project");
         projectMenuCommands.add("Type display to display the programmers");
+        projectMenuCommands.add("Type status to view the status of a project");
         projectMenuCommands.add("Type back to go back");
-
     }
 
+    private void addModifyProjectCommands() {
+        modifyProjectCommands.add("Type name to change name");
+        modifyProjectCommands.add("Type budget to change budget");
+        modifyProjectCommands.add("Type deadline to change deadline");
+        modifyProjectCommands.add("Type back to go back");
+    }
+
+    private void addProgrammerMenuCommands() {
+        programmerMenuCommands.add("Type status to view the status of the project");
+        programmerMenuCommands.add("Type task to execute a task");
+        programmerMenuCommands.add("Type add to add new skills");
+        programmerMenuCommands.add("Type list to display the list of skills");
+        programmerMenuCommands.add("Type logout to logout");
+        programmerMenuCommands.add("Type quit to quit");
+    }
+
+    public ArrayList<String> getProjectMenuCommands() {
+        return projectMenuCommands;
+    }
 
     public ArrayList<String> getMainMenuCommands() {
         return mainMenuCommands;
@@ -90,6 +113,10 @@ public class Commands {
 
     public ArrayList<String> getAdminCommands() {
         return adminCommands;
+    }
+
+    public ArrayList<String> getProgrammerMenuCommands() {
+        return programmerMenuCommands;
     }
 
     public ArrayList<String> getAdminModdifyCommands() {
