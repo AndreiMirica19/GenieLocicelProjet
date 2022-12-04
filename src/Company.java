@@ -1,20 +1,21 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 
-public class Company {
-    private String name;
+public class Company extends Account {
     private String country;
     private String city;
-    private  String password;
+
+    private ArrayList<Project> projects = new ArrayList<>();
 
     public Company() {
     }
 
     public String getName() {
-        return name;
+        return super.getName();
     }
 
     public void setName(String name) {
-        this.name = name;
+        super.setName(name);
     }
 
     public String getCountry() {
@@ -34,10 +35,41 @@ public class Company {
     }
 
     public String getPassword() {
-        return password;
+        return super.getPassword();
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        super.setPassword(password);
+    }
+
+    public void addProject(Project project) {
+        projects.add(project);
+    }
+
+    public void deleteProject(String projectName) {
+        Iterator<Project> projectIterator = projects.iterator();
+
+        while (projectIterator.hasNext()) {
+            Project project = projectIterator.next();
+
+            if (project.getName().equals(projectName)) {
+                projectIterator.remove();
+            }
+        }
+    }
+
+    public void displayProjects() {
+        for (Project project : projects) {
+            project.displayInfo();
+        }
+    }
+
+    public void displayInfo() {
+        System.out.println();
+        System.out.println("-------------------");
+        System.out.println("Name: " + getName());
+        System.out.println("Country: " + country);
+        System.out.println("City: " + city);
+        System.out.println("-------------------");
     }
 }

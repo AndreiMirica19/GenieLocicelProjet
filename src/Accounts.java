@@ -6,6 +6,8 @@ public class Accounts {
     private ArrayList<Programmer> programmers = new ArrayList<>();
     private ArrayList<Company> companies = new ArrayList<>();
     private ArrayList<Admin> admins = new ArrayList<>();
+
+    private int currentIndex;
     private static Accounts accounts = null;
 
     private Accounts() {
@@ -60,8 +62,43 @@ public class Accounts {
         displayAccounts();
     }
 
+    public Account modifyAccount(String name) {
+        Iterator<Programmer> programmerIterator = programmers.iterator();
+        Iterator<Company> companyIterator = companies.iterator();
+        Iterator<Admin> adminIterator = admins.iterator();
+
+        while (programmerIterator.hasNext()) {
+            Programmer programmer = programmerIterator.next();
+
+            if (programmer.getName().equals(name)) {
+                programmerIterator.remove();
+                programmer.displayInfo();
+                return programmer;
+            }
+        }
+
+        while (companyIterator.hasNext()) {
+            Company company = companyIterator.next();
+            if (company.getName().equals(name)) {
+                companyIterator.remove();
+                company.displayInfo();
+                return company;
+            }
+        }
+
+        while (adminIterator.hasNext()) {
+            Admin admin = adminIterator.next();
+            if (admin.getName().equals(name)) {
+                adminIterator.remove();
+                admin.displayInfo();
+                return admin;
+            }
+        }
+        System.out.println("Account doesn't exist");
+        return  null;
+    }
+
     public void displayProgrammers() {
-        System.out.println("------------------------");
         for (Programmer programmer : programmers) {
             System.out.println();
             System.out.println("Name: " + programmer.getName());
@@ -73,7 +110,6 @@ public class Accounts {
     }
 
     public void displayAdmins() {
-        System.out.println("------------------------");
         for (Admin admin : admins) {
             System.out.println();
             System.out.println("Name: " + admin.getName());
@@ -83,7 +119,6 @@ public class Accounts {
     }
 
     public void displayCompanies() {
-        System.out.println("------------------------");
         for (Company company : companies) {
             System.out.println();
             System.out.println("Name: " + company.getName());
@@ -101,5 +136,52 @@ public class Accounts {
         displayProgrammers();
         System.out.println("Companies");
         displayCompanies();
+    }
+
+    public ArrayList<Programmer> getProgrammers() {
+        return programmers;
+    }
+
+    public AccountType getAccountType(String username, String password) {
+        if  (username.equals("Admin") && password.equals("admin")) {
+            return AccountType.Admin;
+        }
+        for (Admin admin : admins) {
+            if (admin.getName().equals(username) && admin.getPassword().equals(password)) {
+                currentIndex = admins.indexOf(admin);
+                return  AccountType.Admin;
+            }
+        }
+
+        for (Programmer programmer : programmers) {
+            if (programmer.getName().equals(username) && programmer.getPassword().equals(password)) {
+                currentIndex = programmers.indexOf(programmer);
+                return AccountType.Programmer;
+            }
+        }
+
+        for (Company company : companies) {
+            if (company.getName().equals(username) && company.getPassword().equals(password)) {
+                currentIndex = companies.indexOf(company);
+                return  AccountType.Company;
+            }
+        }
+        return AccountType.Unauthorized;
+    }
+
+    public void addProject(Project project) {
+        Company company = companies.remove(currentIndex);
+        company.addProject(project);
+        companies.add(company);
+    }
+
+    public void deleteProject(String project) {
+        Company company = companies.remove(currentIndex);
+        company.deleteProject(project);
+        companies.add(company);
+    }
+
+    public void displayProjects() {
+        companies.get(currentIndex).displayProjects();
     }
 }

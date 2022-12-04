@@ -65,10 +65,13 @@ public class Main {
             System.out.print("Please enter your password: ");
             String password = scanner.nextLine();
 
-            switch (getAccountType(username, password)) {
+            switch (accounts.getAccountType(username, password)) {
                 case Admin -> {
                     displayAdminMenu();
                     back = true;
+                }
+                case Company -> {
+                    displayCompanyMenu();
                 }
                 case Unauthorized -> {
                     System.out.println("Incorrect Credentials, try again?");
@@ -82,14 +85,6 @@ public class Main {
 
         }
 
-    }
-
-    public static AccountType getAccountType(String username, String password) {
-        if (username.equals("Admin") && password.equals("admin")) {
-            return AccountType.Admin;
-        } else {
-            return AccountType.Unauthorized;
-        }
     }
 
     public static void displayAdminMenu() {
@@ -138,6 +133,18 @@ public class Main {
         System.out.print("Please enter a password: ");
         String password = scanner.nextLine();
         programmer.setPassword(password);
+
+        boolean back = false;
+        while (!back) {
+            System.out.println("Add a skill: ");
+            String skill = scanner.nextLine();
+            programmer.addSkill(skill);
+            System.out.println("Add another skill? Type yes or no");
+            String command = scanner.nextLine();
+            if (command.equals("no")) {
+                back = true;
+            }
+        }
 
         accounts.addProgrammer(programmer);
         System.out.println("Programmer successfully added");
@@ -210,12 +217,127 @@ public class Main {
             String command = scanner.nextLine();
 
             switch (command) {
-                case "modify" -> System.out.println("Modify");
-                case "password" -> System.out.println("Password");
+                case "modify" -> modifyAccount();
+                case "password" -> resetPassword();
                 case "delete" -> deleteAccount();
-                case "back" -> back = false;
+                case "back" -> back = true;
             }
         }
+    }
+
+    public static void modifyAccount() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Please enter the username: ");
+        String username = scanner.nextLine();
+        Account account = accounts.modifyAccount(username);
+
+        if (account instanceof Programmer) {
+            modifyProgrammer((Programmer) account);
+        } else {
+            if (account instanceof Company) {
+                modifyCompany((Company) account);
+            } else {
+                if (account instanceof Admin) {
+
+                }
+            }
+        }
+    }
+
+    public static void modifyProgrammer(Programmer programmer) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Type info to see the which details can be changed");
+        boolean back = false;
+
+        while (!back) {
+            System.out.print("Please enter a command: ");
+            String command = scanner.nextLine();
+
+            switch (command) {
+                case "name" -> {
+                    System.out.print("Please enter the new name: ");
+                    String name = scanner.nextLine();
+                    programmer.setName(name);
+                }
+                case "country" -> {
+                    System.out.print("Please enter the new country: ");
+                    String country = scanner.nextLine();
+                    programmer.setCountry(country);
+                }
+                case "city" -> {
+                    System.out.print("Please enter the new city: ");
+                    String city = scanner.nextLine();
+                    programmer.setCountry(city);
+                }
+                case "schedule" -> {
+                    System.out.print("Please enter the new schedule: ");
+                    String schedule = scanner.nextLine();
+                    programmer.setSchedule(schedule);
+                }
+                case "back" -> back = true;
+            }
+        }
+
+        System.out.println("The new details are: ");
+        programmer.displayInfo();
+        accounts.addProgrammer(programmer);
+    }
+
+    public static void modifyCompany(Company company) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Type info to see the which details can be changed");
+        boolean back = false;
+
+        while (!back) {
+            System.out.print("Please enter a command: ");
+            String command = scanner.nextLine();
+
+            switch (command) {
+                case "name" -> {
+                    System.out.print("Please enter the new name: ");
+                    String name = scanner.nextLine();
+                    company.setName(name);
+                }
+                case "country" -> {
+                    System.out.print("Please enter the new country: ");
+                    String country = scanner.nextLine();
+                    company.setCountry(country);
+                }
+                case "city" -> {
+                    System.out.print("Please enter the new city: ");
+                    String city = scanner.nextLine();
+                    company.setCountry(city);
+                }
+                case "back" -> back = true;
+            }
+        }
+
+        System.out.println("The new details are: ");
+        company.displayInfo();
+        accounts.addCompany(company);
+    }
+
+    public static void resetPassword() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Please enter the username: ");
+        String username = scanner.nextLine();
+        Account account = accounts.modifyAccount(username);
+        System.out.print("Please enter the new password: ");
+        String password = scanner.nextLine();
+        account.setPassword(password);
+
+        if (account instanceof Programmer) {
+            accounts.addProgrammer((Programmer) account);
+        } else {
+            if (account instanceof Company) {
+                accounts.addCompany((Company) account);
+            } else {
+                if (account instanceof Admin) {
+                    accounts.addAdmin((Admin) account);
+                }
+            }
+        }
+
     }
 
     public static void deleteAccount() {
@@ -223,5 +345,86 @@ public class Main {
         System.out.println("Type the name");
         String name = scanner.nextLine();
         accounts.deleteAccount(name);
+    }
+
+    public static void displayCompanyMenu() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Company menu! Type info to see the commands");
+
+        boolean back = false;
+        while (!back && !quit) {
+            System.out.println("Type a command: ");
+            String command = scanner.nextLine();
+
+            switch (command) {
+                case "add" -> addProject();
+                case "project" -> System.out.println("Profile");
+                case "info" -> displayInfo(commands.getCompanyMenuCommands());
+                case "list" -> accounts.displayProjects();
+                case "delete" -> deleteProject();
+                case "logout" -> back = true;
+                case "quit" -> quit = true;
+            }
+        }
+    }
+
+    public static void addProject() {
+        Scanner scanner = new Scanner(System.in);
+        Project project = new Project();
+
+        System.out.print("Name of the project: ");
+        String name = scanner.nextLine();
+        project.setName(name);
+
+        System.out.print("Deadline: ");
+        String deadline = scanner.nextLine();
+        project.setDeadline(deadline);
+
+        System.out.println("Budget: ");
+        int budget = scanner.nextInt();
+        project.setBudget(budget);
+
+        boolean back = false;
+        while (!back) {
+            System.out.println("Add a skill: ");
+            String skill = scanner.nextLine();
+            project.addSkill((skill));
+            System.out.println("Add another skill? Type yes or no");
+            String command = scanner.nextLine();
+            if (command.equals("no")) {
+                back = true;
+            }
+        }
+
+        System.out.println("Number of programmers: ");
+        int numberOfProgrammers = scanner.nextInt();
+        project.setNumberOfProgrammers(numberOfProgrammers);
+
+        project.displayInfo();
+        accounts.addProject(project);
+
+    }
+
+    public static void deleteProject() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Name of the project");
+        String name = scanner.nextLine();
+        accounts.deleteProject(name);
+        System.out.println("Project deleted");
+    }
+
+    public static void displayProjectMenu() {
+        System.out.println("Project menu. Type info to see the commands");
+        Scanner scanner = new Scanner(System.in);
+        Boolean back = false;
+
+        while (!back) {
+            System.out.println("Type a command: ");
+            String command = scanner.nextLine();
+
+            switch (command) {
+                case "modify" -> System.out.println("Modify");
+            }
+        }
     }
 }

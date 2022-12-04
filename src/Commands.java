@@ -5,12 +5,20 @@ public class Commands {
     private ArrayList<String> loginCommands = new ArrayList<String>();
     private ArrayList<String> adminCommands = new ArrayList<String>();
     private ArrayList<String> adminModdifyCommands = new ArrayList<String>();
+    private ArrayList<String> modifyProgrammerComands = new ArrayList<>();
+    private ArrayList<String> modifyCompanyCommands = new ArrayList<>();
+    private ArrayList<String> companyMenuCommands = new ArrayList<>();
+    private ArrayList<String> projectMenuCommands = new ArrayList<>();
 
     public Commands() {
         addAdminCommands();
         addLoginCommands();
         addMainMenuCommands();
         addAdminModifyCommands();
+        addModifyProgrammerCommands();
+        addModifyCompanyCommands();
+        addCompanyMenuCommands();
+        addProjectMenuCommands();
     }
 
     private void addMainMenuCommands() {
@@ -40,6 +48,38 @@ public class Commands {
         adminModdifyCommands.add("Type back to go back");
     }
 
+    private void addModifyProgrammerCommands() {
+        modifyProgrammerComands.add("Type name to change name");
+        modifyProgrammerComands.add("Type country to change country");
+        modifyProgrammerComands.add("Type city to change city");
+        modifyProgrammerComands.add("Type schedule to change schedule");
+        modifyProgrammerComands.add("Type back to go back");
+
+    }
+
+    private void addModifyCompanyCommands() {
+        modifyCompanyCommands.add("Type name to change name");
+        modifyCompanyCommands.add("Type country to change country");
+        modifyCompanyCommands.add("Type city to change city");
+    }
+
+    private void addCompanyMenuCommands() {
+        companyMenuCommands.add("Type project to see/edit details about a project");
+        companyMenuCommands.add("Type add to add a project");
+        companyMenuCommands.add("Type list to display the list of projects");
+        companyMenuCommands.add("Type delete to delete a project");
+        companyMenuCommands.add("Type logout to logout");
+        companyMenuCommands.add("Type quit to quit");
+    }
+
+    private void addProjectMenuCommands() {
+        projectMenuCommands.add("Type modify to modify the project");
+        projectMenuCommands.add("Type display to display the programmers");
+        projectMenuCommands.add("Type back to go back");
+
+    }
+
+
     public ArrayList<String> getMainMenuCommands() {
         return mainMenuCommands;
     }
@@ -54,5 +94,17 @@ public class Commands {
 
     public ArrayList<String> getAdminModdifyCommands() {
         return adminModdifyCommands;
+    }
+
+    public ArrayList<String> getModifyProgrammerComands() {
+        return modifyProgrammerComands;
+    }
+
+    public ArrayList<String> getModifyCompanyCommands() {
+        return modifyCompanyCommands;
+    }
+
+    public ArrayList<String> getCompanyMenuCommands() {
+        return companyMenuCommands;
     }
 }

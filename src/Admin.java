@@ -1,23 +1,28 @@
-public class Admin {
-    private String name;
-    private String password;
+public class Admin extends Account {
 
     public Admin() {
     }
 
     public String getName() {
-        return name;
+        return super.getName();
     }
 
     public void setName(String name) {
-        this.name = name;
+        super.setName(name);
     }
 
     public String getPassword() {
-        return password;
+       return super.getPassword();
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        super.setPassword(password);
+    }
+
+    public void displayInfo() {
+        System.out.println();
+        System.out.println("-------------------");
+        System.out.println("Name: " + getName());
+        System.out.println("-------------------");
     }
 }
