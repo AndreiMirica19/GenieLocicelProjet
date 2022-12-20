@@ -6,6 +6,7 @@ public class Company extends Account {
     private String city;
 
     private ArrayList<Project> projects = new ArrayList<>();
+    private Accounts accounts = Accounts.getInstance();
 
     public Company() {
     }
@@ -44,6 +45,8 @@ public class Company extends Account {
 
     public void addProject(Project project) {
         projects.add(project);
+        accounts.deleteCompany(getName());
+        accounts.addCompany(this);
     }
 
     public void deleteProject(String projectName) {
@@ -56,6 +59,9 @@ public class Company extends Account {
                 projectIterator.remove();
             }
         }
+
+        accounts.deleteCompany(getName());
+        accounts.addCompany(this);
     }
 
     public void displayProjects() {
@@ -102,7 +108,6 @@ public class Company extends Account {
     public void completeTask(String projectName) {
         for (Project project : projects) {
             if (project.name.equals(projectName)) {
-                System.out.println("DDDDDD");
                 project.completeTask();
             }
         }
@@ -115,4 +120,5 @@ public class Company extends Account {
         System.out.println("City: " + city);
         System.out.println("-------------------");
     }
+
 }

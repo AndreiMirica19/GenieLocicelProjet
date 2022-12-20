@@ -7,7 +7,7 @@ public class Project {
     ArrayList<String> skills = new ArrayList<>();
     ArrayList<Programmer> programmers = new ArrayList<>();
     private int budget;
-    private String schedule;
+    private Schedule schedule;
     private int numberOfProgrammers;
     private Accounts accounts = Accounts.getInstance();
     private int totalTasks = Math.round((float) (Math.random() * 10));
@@ -36,7 +36,7 @@ public class Project {
         }
 
         System.out.println("Budget: " + budget);
-        System.out.println("Schedule: " + schedule);
+        schedule.displayInfo();
         System.out.println("Total tasks: " + totalTasks);
         System.out.println("Completed tasks: " + completedTasks);
     }
@@ -51,10 +51,6 @@ public class Project {
         this.name = name;
     }
 
-    public String getDeadline() {
-        return deadline;
-    }
-
     public void setDeadline(String deadline) {
         this.deadline = deadline;
     }
@@ -67,32 +63,13 @@ public class Project {
         skills.add(skill);
     }
 
-    public ArrayList<Programmer> getProgrammers() {
-        return programmers;
-    }
-
-    public void setProgrammers(ArrayList<Programmer> programmers) {
-        this.programmers = programmers;
-    }
-
-    public int getBudget() {
-        return budget;
-    }
-
     public void setBudget(int budget) {
         this.budget = budget;
     }
 
-    public String getSchedule() {
-        return schedule;
-    }
 
-    public void setSchedule(String schedule) {
+    public void setSchedule(Schedule schedule) {
         this.schedule = schedule;
-    }
-
-    public int getNumberOfProgrammers() {
-        return numberOfProgrammers;
     }
 
     public int getRemainingTasks() {

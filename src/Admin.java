@@ -1,5 +1,7 @@
 public class Admin extends Account {
 
+    private Accounts accounts = Accounts.getInstance();
+
     public Admin() {
     }
 
@@ -25,4 +27,30 @@ public class Admin extends Account {
         System.out.println("Name: " + getName());
         System.out.println("-------------------");
     }
+
+    public void addProgrammer(Programmer programmer) {
+        accounts.addProgrammer(programmer);
+    }
+
+    public void addCompany(Company company) {
+        accounts.addCompany(company);
+    }
+
+    public void addAdmin(Admin admin) {
+        accounts.addAdmin(admin);
+    }
+
+    public void deleteAccount(String name) {
+        accounts.deleteAccount(name);
+    }
+
+    public Account modifyAccount(String name) {
+        return accounts.modifyAccount(name);
+    }
+
+    public void displayProgrammers() {
+        accounts.displayProgrammers();
+    }
+
+
 }

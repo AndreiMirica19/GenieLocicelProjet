@@ -5,10 +5,11 @@ public class Programmer extends Account {
     private  String country;
     private ArrayList<String> programmingLanguages = new ArrayList<>();
     private ArrayList<String> skills = new ArrayList<>();
-    private String schedule;
+    private Schedule schedule;
     private boolean assigned = false;
     private Project project;
     private String companyName;
+    private Accounts accounts = Accounts.getInstance();
 
 
 
@@ -31,11 +32,9 @@ public class Programmer extends Account {
         this.city = city;
     }
 
-    public String getSchedule() {
-        return schedule;
-    }
 
-    public void setSchedule(String schedule) {
+
+    public void setSchedule(Schedule schedule) {
         this.schedule = schedule;
     }
 
@@ -100,7 +99,7 @@ public class Programmer extends Account {
         System.out.println("Name: " + getName());
         System.out.println("Country: " + country);
         System.out.println("City: " + city);
-        System.out.println("Schedule: " + schedule);
+        schedule.displayInfo();
         System.out.println("skills: ");
 
         for (String skill : skills) {
@@ -109,8 +108,8 @@ public class Programmer extends Account {
         System.out.println("-------------------");
     }
 
-    public void displayProjectInfo() {
-        project.displayInfo();
+    public void displayStatus() {
+        project.displayStatus();
     }
 
     public void displaySkills() {
@@ -120,4 +119,11 @@ public class Programmer extends Account {
         }
     }
 
+    public Schedule getSchedule() {
+        return schedule;
+    }
+
+    public void completeTask() {
+        accounts.completeTask();
+    }
 }

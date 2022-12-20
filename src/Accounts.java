@@ -22,6 +22,7 @@ public class Accounts {
 
     public void addProgrammer(Programmer programmer) {
         programmers.add(programmer);
+        System.out.println("Programmer added successfully!");
     }
 
     public void addCompany(Company company) {
@@ -104,6 +105,11 @@ public class Accounts {
             System.out.println("Country: " + programmer.getCountry());
             System.out.println("City: " + programmer.getCity());
             System.out.println("Password: " + programmer.getPassword());
+            System.out.println("Skills: ");
+            for(String skill : programmer.getSkills()) {
+                System.out.println("    -"+skill);
+            }
+            programmer.getSchedule().displayInfo();
         }
         System.out.println("------------------------");
     }
@@ -142,9 +148,7 @@ public class Accounts {
     }
 
     public AccountType getAccountType(String username, String password) {
-        if  (username.equals("Admin") && password.equals("admin")) {
-            return AccountType.Admin;
-        }
+
         for (Admin admin : admins) {
             if (admin.getName().equals(username) && admin.getPassword().equals(password)) {
                 currentIndex = admins.indexOf(admin);
@@ -168,35 +172,15 @@ public class Accounts {
         return AccountType.Unauthorized;
     }
 
-    public void addProject(Project project) {
-        Company company = companies.remove(currentIndex);
-        company.addProject(project);
-        companies.add(company);
-    }
+    public  void deleteCompany(String name) {
+        Iterator<Company> companyIterator = companies.iterator();
 
-    public void deleteProject(String project) {
-        Company company = companies.remove(currentIndex);
-        company.deleteProject(project);
-        companies.add(company);
-    }
-
-    public void displayProjects() {
-        companies.get(currentIndex).displayProjects();
-    }
-
-    public Boolean projectExists(String projectName) {
-        return companies.get(currentIndex).projectExist(projectName);
-    }
-
-    public Project getProject(String projectName) {
-        return companies.get(currentIndex).getProject(projectName);
-    }
-    public void displayProgrammersOnProject(String projectName) {
-        companies.get(currentIndex).displayProgrammersOnProject(projectName);
-    }
-
-    public void displayProjectStatus(String projectName) {
-        companies.get(currentIndex).displayProjectStatus(projectName);
+        while (companyIterator.hasNext()) {
+            Company company = companyIterator.next();
+            if (company.getName().equals(name)) {
+                companyIterator.remove();
+            }
+        }
     }
 
     public void assignProject(Project project, String programmerName) {
@@ -217,11 +201,27 @@ public class Accounts {
         }
     }
 
-    public void displaySkills() {
-        programmers.get(currentIndex).displaySkills();
+    public  void deleteProgrammer(String name) {
+        Iterator<Programmer> programmerIterator = programmers.iterator();
+
+        while (programmerIterator.hasNext()) {
+            Programmer programmer = programmerIterator.next();
+            if (programmer.getName().equals(name)) {
+                programmerIterator.remove();
+            }
+        }
     }
 
-    public void addSkill(String skill) {
-        programmers.get(currentIndex).addSkill(skill);
+    public Admin getAdmin() {
+        return admins.get(currentIndex);
     }
+
+    public Programmer getProgrammer() {
+        return programmers.get(currentIndex);
+    }
+
+    public Company getCompany() {
+        return companies.get(currentIndex);
+    }
+
 }

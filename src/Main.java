@@ -11,6 +11,10 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome! Type info to see the commands");
 
+        Admin admin = new Admin();
+        admin.setName("Admin");
+        admin.setPassword("admin");
+        accounts.addAdmin(admin);
 
 
         while(!quit) {
@@ -95,13 +99,15 @@ public class Main {
         boolean logout = false;
         Scanner scanner = new Scanner(System.in);
 
+        Admin admin =  accounts.getAdmin();
+
         while (!logout && !quit) {
             System.out.print("Please enter an Admin menu command: ");
             String command = scanner.nextLine();
             switch (command) {
                 case "info" -> displayInfo(commands.getAdminCommands());
                 case "add" -> addProgrammer();
-                case "list" -> accounts.displayProgrammers();
+                case "list" -> admin.displayProgrammers();
                 case "create" -> createAccount();
                 case "modify" -> displayModifyMenu();
                 case "logout" -> logout = true;
@@ -114,6 +120,7 @@ public class Main {
     public static void addProgrammer() {
         Programmer programmer = new Programmer();
         Scanner scanner = new Scanner(System.in);
+        Admin admin =  accounts.getAdmin();
 
         System.out.println();
 
@@ -129,8 +136,16 @@ public class Main {
         String city = scanner.nextLine();
         programmer.setCity(city);
 
-        System.out.print("Please enter programmer's schedule: ");
-        String schedule = scanner.nextLine();
+        System.out.print("Please enter programmer's start time: ");
+        Schedule schedule = new Schedule();
+        String startTime = scanner.nextLine();
+        schedule.setStartTime(startTime);
+        System.out.print("Please enter programmer's end time: ");
+        String endTime = scanner.nextLine();
+        schedule.setEndTime(endTime);
+        System.out.print("Please enter programmer's timezone: ");
+        String timezone = scanner.nextLine();
+        schedule.setTimezone(timezone);
         programmer.setSchedule(schedule);
 
         System.out.print("Please enter a password: ");
@@ -149,7 +164,7 @@ public class Main {
             }
         }
 
-        accounts.addProgrammer(programmer);
+        admin.addProgrammer(programmer);
         System.out.println("Programmer successfully added");
     }
 
@@ -168,7 +183,7 @@ public class Main {
     public static void addCompany() {
         Scanner scanner = new Scanner(System.in);
         Company company = new Company();
-
+        Admin admin =  accounts.getAdmin();
         System.out.println();
 
         System.out.print("Please enter the name of the company: ");
@@ -187,13 +202,14 @@ public class Main {
         String password = scanner.nextLine();
         company.setPassword(password);
 
-        accounts.addCompany(company);
+        admin.addCompany(company);
         System.out.println("Company successfully added");
 
     }
 
     public static void addAdmin() {
         Scanner scanner = new Scanner(System.in);
+        Admin currentAdmin =  accounts.getAdmin();
         Admin admin = new Admin();
 
         System.out.println();
@@ -206,7 +222,7 @@ public class Main {
         String password = scanner.nextLine();
         admin.setPassword(password);
 
-        accounts.addAdmin(admin);
+        currentAdmin.addAdmin(admin);
         System.out.println("Admin successfully added");
     }
 
@@ -232,7 +248,9 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Please enter the username: ");
         String username = scanner.nextLine();
-        Account account = accounts.modifyAccount(username);
+
+        Admin currentAdmin =  accounts.getAdmin();
+        Account account = currentAdmin.modifyAccount(username);
 
         if (account instanceof Programmer) {
             modifyProgrammer((Programmer) account);
@@ -251,6 +269,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Type info to see the which details can be changed");
         boolean back = false;
+        Admin currentAdmin =  accounts.getAdmin();
 
         while (!back) {
             System.out.print("Please enter a command: ");
@@ -273,8 +292,16 @@ public class Main {
                     programmer.setCountry(city);
                 }
                 case "schedule" -> {
-                    System.out.print("Please enter the new schedule: ");
-                    String schedule = scanner.nextLine();
+                    System.out.print("Please enter programmer's start time: ");
+                    Schedule schedule = new Schedule();
+                    String startTime = scanner.nextLine();
+                    schedule.setStartTime(startTime);
+                    System.out.print("Please enter programmer's end time: ");
+                    String endTime = scanner.nextLine();
+                    schedule.setEndTime(endTime);
+                    System.out.print("Please enter programmer's timezone: ");
+                    String timezone = scanner.nextLine();
+                    schedule.setTimezone(timezone);
                     programmer.setSchedule(schedule);
                 }
                 case "back" -> back = true;
@@ -283,13 +310,14 @@ public class Main {
 
         System.out.println("The new details are: ");
         programmer.displayInfo();
-        accounts.addProgrammer(programmer);
+        currentAdmin.addProgrammer(programmer);
     }
 
     public static void modifyCompany(Company company) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Type info to see the which details can be changed");
         boolean back = false;
+        Admin currentAdmin =  accounts.getAdmin();
 
         while (!back) {
             System.out.print("Please enter a command: ");
@@ -317,26 +345,27 @@ public class Main {
 
         System.out.println("The new details are: ");
         company.displayInfo();
-        accounts.addCompany(company);
+        currentAdmin.addCompany(company);
     }
 
     public static void resetPassword() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Please enter the username: ");
+        Admin currentAdmin =  accounts.getAdmin();
         String username = scanner.nextLine();
-        Account account = accounts.modifyAccount(username);
+        Account account = currentAdmin.modifyAccount(username);
         System.out.print("Please enter the new password: ");
         String password = scanner.nextLine();
         account.setPassword(password);
 
         if (account instanceof Programmer) {
-            accounts.addProgrammer((Programmer) account);
+            currentAdmin.addProgrammer((Programmer) account);
         } else {
             if (account instanceof Company) {
-                accounts.addCompany((Company) account);
+                currentAdmin.addCompany((Company) account);
             } else {
                 if (account instanceof Admin) {
-                    accounts.addAdmin((Admin) account);
+                    currentAdmin.addAdmin((Admin) account);
                 }
             }
         }
@@ -347,12 +376,14 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Type the name");
         String name = scanner.nextLine();
-        accounts.deleteAccount(name);
+        Admin admin = accounts.getAdmin();
+        admin.deleteAccount(name);
     }
 
     public static void displayCompanyMenu() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Company menu! Type info to see the commands");
+        Company company = accounts.getCompany();
 
         boolean back = false;
         while (!back && !quit) {
@@ -363,7 +394,7 @@ public class Main {
                 case "add" -> addProject();
                 case "project" -> displayProjectMenu();
                 case "info" -> displayInfo(commands.getCompanyMenuCommands());
-                case "list" -> accounts.displayProjects();
+                case "list" -> company.displayProjects();
                 case "delete" -> deleteProject();
                 case "logout" -> back = true;
                 case "quit" -> quit = true;
@@ -374,10 +405,23 @@ public class Main {
     public static void addProject() {
         Scanner scanner = new Scanner(System.in);
         Project project = new Project();
+        Company company = accounts.getCompany();
 
         System.out.print("Name of the project: ");
         String name = scanner.nextLine();
         project.setName(name);
+
+        System.out.print("Please enter projects's start time: ");
+        Schedule schedule = new Schedule();
+        String startTime = scanner.nextLine();
+        schedule.setStartTime(startTime);
+        System.out.print("Please enter projects's end time: ");
+        String endTime = scanner.nextLine();
+        schedule.setEndTime(endTime);
+        System.out.print("Please enter projects's timezone: ");
+        String timezone = scanner.nextLine();
+        schedule.setTimezone(timezone);
+        project.setSchedule(schedule);
 
         System.out.print("Deadline: ");
         String deadline = scanner.nextLine();
@@ -404,15 +448,16 @@ public class Main {
         project.setNumberOfProgrammers(numberOfProgrammers);
 
         project.displayInfo();
-        accounts.addProject(project);
+        company.addProject(project);
 
     }
 
     public static void deleteProject() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Name of the project: ");
+        Company company = accounts.getCompany();
         String name = scanner.nextLine();
-        accounts.deleteProject(name);
+        company.deleteProject(name);
         System.out.println("Project deleted");
     }
 
@@ -420,8 +465,9 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Please enter the name of the project: ");
         String projectName = scanner.nextLine();
+        Company company = accounts.getCompany();
 
-        if (!accounts.projectExists(projectName)) {
+        if (!company.projectExist(projectName)) {
             System.out.println("Project doesn't exist");
             return;
         }
@@ -435,9 +481,9 @@ public class Main {
             String command = scanner.nextLine();
 
             switch (command) {
-                case "modify" -> modifyProject(accounts.getProject(projectName));
-                case "display" -> accounts.displayProgrammersOnProject(projectName);
-                case "status" -> accounts.displayProjectStatus(projectName);
+                case "modify" -> modifyProject(company.getProject(projectName));
+                case "display" -> company.displayProgrammersOnProject(projectName);
+                case "status" -> company.displayProjectStatus(projectName);
                 case "info" -> displayInfo(commands.getProjectMenuCommands());
                 case  "back" -> back = true;
 
@@ -447,7 +493,8 @@ public class Main {
 
     public static void modifyProject(Project project) {
         Scanner scanner = new Scanner(System.in);
-        accounts.deleteProject(project.getName());
+        Company company = accounts.getCompany();
+        company.deleteProject(project.getName());
         System.out.println("Type info to see the which details can be changed");
         boolean back = false;
 
@@ -478,12 +525,13 @@ public class Main {
 
         System.out.println("The new details are: ");
         project.displayInfo();
-        accounts.addProject(project);
+        company.addProject(project);
     }
 
     public static void displayProgrammerMenu() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Programmer menu! Type info to see the commands");
+        Programmer programmer = accounts.getProgrammer();
 
         boolean back = false;
         while (!back && !quit) {
@@ -493,8 +541,9 @@ public class Main {
             switch (command) {
                 case "add" -> addSkill();
                 case "info" -> displayInfo(commands.getProgrammerMenuCommands());
-                case "list" -> accounts.displaySkills();
-                case "task" -> accounts.completeTask();
+                case "list" -> programmer.displaySkills();
+                case "task" -> programmer.completeTask();
+                case "status" -> programmer.displayStatus();
                 case "logout" -> back = true;
                 case "quit" -> quit = true;
             }
@@ -504,10 +553,11 @@ public class Main {
     public static void addSkill() {
         Scanner scanner = new Scanner(System.in);
         boolean back = false;
+        Programmer programmer = accounts.getProgrammer();
         while (!back) {
             System.out.println("Add a skill: ");
             String skill = scanner.nextLine();
-            accounts.addSkill(skill);
+            programmer.addSkill(skill);
             System.out.println("Add another skill? Type yes or no");
             String command = scanner.nextLine();
             if (command.equals("no")) {
