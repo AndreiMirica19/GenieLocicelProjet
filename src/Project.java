@@ -2,11 +2,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Project {
+    private ProjectType projectType;
     String name;
     String deadline;
     ArrayList<String> skills = new ArrayList<>();
     ArrayList<Programmer> programmers = new ArrayList<>();
-    private int budget;
+    private Budget budget;
     private Schedule schedule;
     private int numberOfProgrammers;
     private Accounts accounts = Accounts.getInstance();
@@ -35,8 +36,9 @@ public class Project {
             programmer.displayInfo();
         }
 
-        System.out.println("Budget: " + budget);
+        budget.displayInfo();
         schedule.displayInfo();
+        System.out.println("Project type: " + projectType);
         System.out.println("Total tasks: " + totalTasks);
         System.out.println("Completed tasks: " + completedTasks);
     }
@@ -63,7 +65,7 @@ public class Project {
         skills.add(skill);
     }
 
-    public void setBudget(int budget) {
+    public void setBudget(Budget budget) {
         this.budget = budget;
     }
 
@@ -113,5 +115,9 @@ public class Project {
         for (Programmer programmer : programmers) {
             programmer.displayInfo();
         }
+    }
+
+    public void setProjectType(ProjectType projectType) {
+        this.projectType = projectType;
     }
 }

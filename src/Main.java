@@ -411,6 +411,29 @@ public class Main {
         String name = scanner.nextLine();
         project.setName(name);
 
+        System.out.println("Select one of the following type of projects (long, short, medium): ");
+        ProjectType type;
+        while (true) {
+            String typeString = scanner.nextLine();
+            if (typeString.equals("long")) {
+                type = ProjectType.longTerm;
+                break;
+            } else {
+                if (typeString.equals("short")) {
+                    type = ProjectType.shortTerm;
+                    break;
+                } else {
+                    if (typeString.equals("medium")) {
+                        type = ProjectType.midTerm;
+                        break;
+                    } else {
+                        System.out.println("Please enter a valid type of project");
+                    }
+                }
+            }
+        }
+        project.setProjectType(type);
+
         System.out.print("Please enter projects's start time: ");
         Schedule schedule = new Schedule();
         String startTime = scanner.nextLine();
@@ -427,9 +450,17 @@ public class Main {
         String deadline = scanner.nextLine();
         project.setDeadline(deadline);
 
-        System.out.println("Budget: ");
-        int budget = scanner.nextInt();
+        Budget budget = new Budget();
+        System.out.print("Salary budget: ");
+        String salaryBudget = scanner.nextLine();
+        budget.setSalaryBudget(salaryBudget);
+        System.out.print("Equipment budget: ");
+        String equipmentBudget = scanner.nextLine();
+        budget.setEquipmentBudget(equipmentBudget);
+        System.out.print("Staff development budget: ");
+        budget.setStaffDevelopmentBudget(scanner.nextLine());
         project.setBudget(budget);
+
 
         boolean back = false;
         while (!back) {
@@ -514,8 +545,15 @@ public class Main {
                     project.setDeadline(deadline);
                 }
                 case "budget" -> {
-                    System.out.print("Please enter the new budget: ");
-                    int budget = scanner.nextInt();
+                    Budget budget = new Budget();
+                    System.out.print("Salary budget: ");
+                    String salaryBudget = scanner.nextLine();
+                    budget.setSalaryBudget(salaryBudget);
+                    System.out.print("Equipment budget: ");
+                    String equipmentBudget = scanner.nextLine();
+                    budget.setEquipmentBudget(equipmentBudget);
+                    System.out.print("Staff development budget: ");
+                    budget.setStaffDevelopmentBudget(scanner.nextLine());
                     project.setBudget(budget);
                 }
                 case "info" -> displayInfo(commands.getProjectMenuCommands());
