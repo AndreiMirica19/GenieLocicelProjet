@@ -6,68 +6,61 @@ class AdminTest {
 
 
     @Test
-    void getName() {
+    void getNom() {
         Admin admin = new Admin();
-        admin.setName("admin");
-        assertEquals("admin", admin.getName());
+        admin.setNom("admin");
+        assertEquals("admin", admin.getNom());
     }
 
     @Test
-    void setName() {
+    void setNom() {
         Admin admin = new Admin();
-        admin.setName("admin3");
-        assertEquals("admin3", admin.getName());
+        admin.setNom("admin3");
+        assertEquals("admin3", admin.getNom());
     }
 
     @Test
-    void getPassword() {
+    void setMotDePass() {
         Admin admin = new Admin();
-        admin.setPassword("admin");
-        assertEquals("admin", admin.getPassword());
-    }
-
-    @Test
-    void setPassword() {
-        Admin admin = new Admin();
-        admin.setPassword("admin3");
-        assertEquals("admin3", admin.getPassword());
+        admin.setMot("admin3");
+        assertEquals("admin3", admin.getMot());
     }
 
 
     @Test
-    void addProgrammer() {
+    void ajouterProgrammeur() {
         Admin admin = new Admin();
-        Programmer programmer = new Programmer();
-        programmer.setName("programmer");
-        programmer.setPassword("programmer");
-        Schedule schedule = new Schedule();
-        schedule.setStartTime("10:00");
-        schedule.setEndTime("11:00");
-        schedule.setTimezone("EST");
-        programmer.setSchedule(schedule);
-        programmer.addSkill("java");
-        admin.addProgrammer(programmer);
-        assertTrue( Accounts.getInstance().getProgrammers().contains(programmer));
+        Programmeur programmeur = new Programmeur();
+        programmeur.setNom("programmer");
+        programmeur.setMot("programmer");
+        Horaire horaire = new Horaire();
+        horaire.setHeureDebut("10:00");
+        horaire.setHeureFin("11:00");
+        horaire.setTimezone("EST");
+        programmeur.setHoraire(horaire);
+        programmeur.addSkill("java");
+        admin.ajouterProgrammer(programmeur);
+        assertTrue( Comptes.getInstance().getProgrammeurs().contains(programmeur));
     }
 
     @Test
-    void addCompany() {
+    void ajouterEntreprise() {
         Admin admin = new Admin();
-        Company company = new Company();
-        company.setName("company");
-        company.setPassword("company");
-        admin.addCompany(company);
-        assertEquals(1, Accounts.getInstance().getCompanies().size());
+        Enterprise enterprise = new Enterprise();
+        enterprise.setNom("Entreprise");
+        enterprise.setMot("company");
+        admin.ajouterEntreprise(enterprise);
+        assertTrue(Comptes.getInstance().getEntreprises().contains(enterprise));
     }
 
     @Test
     void addAdmin() {
         Admin admin = new Admin();
         Admin admin2 = new Admin();
-        admin2.setName("admin2");
-        admin2.setPassword("admin2");
+        admin2.setNom("admin2");
+        admin2.setMot("admin2");
         admin.addAdmin(admin2);
-        assertEquals("admin2", Accounts.getInstance().getAdmins().get(0).getName());
+        assertEquals("admin2", Comptes.getInstance().getAdmins().get(0).getNom());
     }
 
     /**
@@ -107,59 +100,59 @@ class AdminTest {
      * 33. check if the password was changed
      */
     @Test
-    void modifyAccount() {
+    void modifierCompte() {
         Admin admin = new Admin();
 
-        Programmer programmer = new Programmer();
-        programmer.setName("programmer");
-        programmer.setPassword("programmer");
-        Schedule schedule = new Schedule();
-        schedule.setStartTime("10:00");
-        schedule.setEndTime("11:00");
-        schedule.setTimezone("EST");
-        programmer.setSchedule(schedule);
+        Programmeur programmeur = new Programmeur();
+        programmeur.setNom("programmer");
+        programmeur.setMot("programmer");
+        Horaire horaire = new Horaire();
+        horaire.setHeureDebut("10:00");
+        horaire.setHeureFin("11:00");
+        horaire.setTimezone("EST");
+        programmeur.setHoraire(horaire);
 
-        Accounts.getInstance().addProgrammer(programmer);
-        programmer = (Programmer) Accounts.getInstance().modifyAccount("programmer");
-        assertTrue(Accounts.getInstance().getProgrammers().isEmpty());
-        programmer.setName("programmer2");
-        Accounts.getInstance().addProgrammer(programmer);
-        assertEquals("programmer2", Accounts.getInstance().getProgrammers().get(0).getName());
+        Comptes.getInstance().ajouterProgrammeur(programmeur);
+        programmeur = (Programmeur) Comptes.getInstance().modifierCompte("programmer");
+        assertTrue(Comptes.getInstance().getProgrammeurs().isEmpty());
+        programmeur.setNom("programmer2");
+        Comptes.getInstance().ajouterProgrammeur(programmeur);
+        assertEquals("programmer2", Comptes.getInstance().getProgrammeurs().get(0).getNom());
 
-        Company company = new Company();
-        company.setName("company");
-        company.setPassword("company");
-        Accounts.getInstance().addCompany(company);
-        company = (Company) Accounts.getInstance().modifyAccount("company");
-        assertTrue(Accounts.getInstance().getCompanies().isEmpty());
-        company.setName("company2");
-        Accounts.getInstance().addCompany(company);
-        assertEquals("company2", Accounts.getInstance().getCompanies().get(0).getName());
+        Enterprise enterprise = new Enterprise();
+        enterprise.setNom("company");
+        enterprise.setMot("company");
+        Comptes.getInstance().ajouterEntreprise(enterprise);
+        enterprise = (Enterprise) Comptes.getInstance().modifierCompte("company");
+        assertTrue(Comptes.getInstance().getEntreprises().isEmpty());
+        enterprise.setNom("company2");
+        Comptes.getInstance().ajouterEntreprise(enterprise);
+        assertEquals("company2", Comptes.getInstance().getEntreprises().get(0).getNom());
 
         Admin admin2 = new Admin();
-        admin2.setName("admin2");
-        admin2.setPassword("admin2");
-        Accounts.getInstance().addAdmin(admin2);
-        admin2 = (Admin) Accounts.getInstance().modifyAccount("admin2");
-        assertFalse(Accounts.getInstance().getAdmins().contains(admin2));
-        admin2.setName("admin3");
-        Accounts.getInstance().addAdmin(admin2);
-        assertTrue(Accounts.getInstance().getAdmins().contains(admin2));
+        admin2.setNom("admin2");
+        admin2.setMot("admin2");
+        Comptes.getInstance().ajouterAdmin(admin2);
+        admin2 = (Admin) Comptes.getInstance().modifierCompte("admin2");
+        assertFalse(Comptes.getInstance().getAdmins().contains(admin2));
+        admin2.setNom("admin3");
+        Comptes.getInstance().ajouterAdmin(admin2);
+        assertTrue(Comptes.getInstance().getAdmins().contains(admin2));
 
-        programmer = (Programmer) Accounts.getInstance().modifyAccount("programmer2");
-        programmer.setPassword("d");
-        Accounts.getInstance().addProgrammer(programmer);
-        assertEquals("d", Accounts.getInstance().getProgrammers().get(0).getPassword());
+        programmeur = (Programmeur) Comptes.getInstance().modifierCompte("programmer2");
+        programmeur.setMot("d");
+        Comptes.getInstance().ajouterProgrammeur(programmeur);
+        assertEquals("d", Comptes.getInstance().getProgrammeurs().get(0).getMot());
 
-        company = (Company) Accounts.getInstance().modifyAccount("company2");
-        company.setPassword("d");
-        Accounts.getInstance().addCompany(company);
-        assertEquals("d", Accounts.getInstance().getCompanies().get(0).getPassword());
+        enterprise = (Enterprise) Comptes.getInstance().modifierCompte("company2");
+        enterprise.setMot("d");
+        Comptes.getInstance().ajouterEntreprise(enterprise);
+        assertEquals("d", Comptes.getInstance().getEntreprises().get(0).getMot());
 
-        admin2 = (Admin) Accounts.getInstance().modifyAccount("admin3");
-        admin2.setPassword("d");
-        Accounts.getInstance().addAdmin(admin2);
-        assertEquals("d", Accounts.getInstance().getAdmins().get(0).getPassword());
+        admin2 = (Admin) Comptes.getInstance().modifierCompte("admin3");
+        admin2.setMot("d");
+        Comptes.getInstance().ajouterAdmin(admin2);
+        assertEquals("d", Comptes.getInstance().getAdmins().get(1).getMot());
     }
 
     /**
@@ -175,49 +168,49 @@ class AdminTest {
      * 9. Check if the right admin was deleted
      */
     @Test
-    void deleteAccount() {
+    void effacerAccount() {
         Admin admin = new Admin();
-        admin.setName("admin");
-        admin.setPassword("admin");
-        Accounts.getInstance().addAdmin(admin);
+        admin.setNom("admin");
+        admin.setMot("admin");
+        Comptes.getInstance().ajouterAdmin(admin);
 
-        Programmer programmer = new Programmer();
-        programmer.setName("Programmer");
-        programmer.addSkill("java");
-        Schedule schedule = new Schedule();
-        schedule.setStartTime("10:00");
-        schedule.setEndTime("11:00");
-        schedule.setTimezone("EST");
-        programmer.setSchedule(schedule);
-        admin.addProgrammer(programmer);
+        Programmeur programmeur = new Programmeur();
+        programmeur.setNom("Programmer");
+        programmeur.addSkill("java");
+        Horaire horaire = new Horaire();
+        horaire.setHeureDebut("10:00");
+        horaire.setHeureFin("11:00");
+        horaire.setTimezone("EST");
+        programmeur.setHoraire(horaire);
+        admin.ajouterProgrammer(programmeur);
 
-        Programmer programmer2 = new Programmer();
-        programmer2.setName("Programmer2");
-        programmer2.addSkill("java");
-        programmer2.setSchedule(schedule);
-        admin.addProgrammer(programmer);
-        admin.deleteAccount("Programmer2");
-        assertTrue(Accounts.getInstance().getProgrammers().contains(programmer));
-        assertFalse(Accounts.getInstance().getProgrammers().contains(programmer2));
+        Programmeur programmeur2 = new Programmeur();
+        programmeur2.setNom("Programmer2");
+        programmeur2.addSkill("java");
+        programmeur2.setHoraire(horaire);
+        admin.ajouterProgrammer(programmeur);
+        admin.effacerAccount("Programmer2");
+        assertTrue(Comptes.getInstance().getProgrammeurs().contains(programmeur));
+        assertFalse(Comptes.getInstance().getProgrammeurs().contains(programmeur2));
 
         Admin admin2 = new Admin();
-        admin2.setName("admin2");
-        admin2.setPassword("admin2");
+        admin2.setNom("admin2");
+        admin2.setMot("admin2");
         admin.addAdmin(admin2);
-        admin.deleteAccount("admin2");
-        assertFalse(Accounts.getInstance().getAdmins().contains(admin2));
-        assertTrue(Accounts.getInstance().getAdmins().contains(admin));
+        admin.effacerAccount("admin2");
+        assertFalse(Comptes.getInstance().getAdmins().contains(admin2));
+        assertTrue(Comptes.getInstance().getAdmins().contains(admin));
 
-        Company company = new Company();
-        company.setName("company");
-        admin.addCompany(company);
+        Enterprise enterprise = new Enterprise();
+        enterprise.setNom("company");
+        admin.ajouterEntreprise(enterprise);
 
-        Company company2 = new Company();
-        company2.setName("company2");
-        admin.addCompany(company2);
+        Enterprise enterprise2 = new Enterprise();
+        enterprise2.setNom("company2");
+        admin.ajouterEntreprise(enterprise2);
 
-        admin.deleteAccount("company2");
-        assertTrue(Accounts.getInstance().getCompanies().contains(company));
-        assertFalse(Accounts.getInstance().getCompanies().contains(company2));
+        admin.effacerAccount("company2");
+        assertTrue(Comptes.getInstance().getEntreprises().contains(enterprise));
+        assertFalse(Comptes.getInstance().getEntreprises().contains(enterprise2));
     }
 }

@@ -1,17 +1,17 @@
 public class Budget {
-    String salaryBudget;
+    String salaireBudget;
     String equipmentBudget;
-    String staffDevelopmentBudget;
+    String personnelDevelopmentBudget;
 
     public Budget() {
     }
 
-    public String getSalaryBudget() {
-        return salaryBudget;
+    public String getSalaireBudget() {
+        return salaireBudget;
     }
 
-    public void setSalaryBudget(String salaryBudget) {
-        this.salaryBudget = salaryBudget;
+    public void setSalaireBudget(String salaireBudget) {
+        this.salaireBudget = salaireBudget;
     }
 
     public String getEquipmentBudget() {
@@ -22,18 +22,18 @@ public class Budget {
         this.equipmentBudget = equipmentBudget;
     }
 
-    public String getStaffDevelopmentBudget() {
-        return staffDevelopmentBudget;
+    public String getPersonnelDevelopmentBudget() {
+        return personnelDevelopmentBudget;
     }
 
-    public void setStaffDevelopmentBudget(String staffDevelopmentBudget) {
-        this.staffDevelopmentBudget = staffDevelopmentBudget;
+    public void setPersonnelDevelopmentBudget(String personnelDevelopmentBudget) {
+        this.personnelDevelopmentBudget = personnelDevelopmentBudget;
     }
 
     public void displayInfo() {
-        System.out.println("Salary budget: " + salaryBudget);
+        System.out.println("Salary budget: " + salaireBudget);
         System.out.println("Equipment budget: " + equipmentBudget);
-        System.out.println("Staff development budget: " + staffDevelopmentBudget);
-        System.out.println("Total budget: " + (Integer.parseInt(salaryBudget) + Integer.parseInt(equipmentBudget) + Integer.parseInt(staffDevelopmentBudget)));
+        System.out.println("Staff development budget: " + personnelDevelopmentBudget);
+        System.out.println("Total budget: " + (Integer.parseInt(salaireBudget) + Integer.parseInt(equipmentBudget) + Integer.parseInt(personnelDevelopmentBudget)));
     }
 }

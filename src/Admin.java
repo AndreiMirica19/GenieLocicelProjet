@@ -1,55 +1,55 @@
-public class Admin extends Account {
+public class Admin extends Compte {
 
-    private Accounts accounts = Accounts.getInstance();
+    private Comptes comptes = Comptes.getInstance();
 
     public Admin() {
     }
 
-    public String getName() {
-        return super.getName();
+    public String getNom() {
+        return super.getNom();
     }
 
-    public void setName(String name) {
-        super.setName(name);
+    public void setNom(String nom) {
+        super.setNom(nom);
     }
 
-    public String getPassword() {
-       return super.getPassword();
+    public String getMot() {
+       return super.getMot();
     }
 
-    public void setPassword(String password) {
-        super.setPassword(password);
+    public void setMot(String mot) {
+        super.setMot(mot);
     }
 
-    public void displayInfo() {
+    public void afficherInfo() {
         System.out.println();
         System.out.println("-------------------");
-        System.out.println("Name: " + getName());
+        System.out.println("Name: " + getNom());
         System.out.println("-------------------");
     }
 
-    public void addProgrammer(Programmer programmer) {
-        accounts.addProgrammer(programmer);
+    public void ajouterProgrammer(Programmeur programmeur) {
+        comptes.ajouterProgrammeur(programmeur);
     }
 
-    public void addCompany(Company company) {
-        accounts.addCompany(company);
+    public void ajouterEntreprise(Enterprise enterprise) {
+        comptes.ajouterEntreprise(enterprise);
     }
 
     public void addAdmin(Admin admin) {
-        accounts.addAdmin(admin);
+        comptes.ajouterAdmin(admin);
     }
 
-    public void deleteAccount(String name) {
-        accounts.deleteAccount(name);
+    public void effacerAccount(String name) {
+        comptes.effacerAccount(name);
     }
 
-    public Account modifyAccount(String name) {
-        return accounts.modifyAccount(name);
+    public Compte modifierCompte(String name) {
+        return comptes.modifierCompte(name);
     }
 
-    public void displayProgrammers() {
-        accounts.displayProgrammers();
+    public void afficherProgrammers() {
+        comptes.afficherProgrammers();
     }
 
 
