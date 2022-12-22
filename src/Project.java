@@ -103,8 +103,10 @@ public class Project {
             if (!programmer.isAssigned()) {
                 if (!Collections.disjoint(skills, programmer.getSkills()) && programmers.size() < numberOfProgrammers) {
                     programmer.assignProject(this);
-                    programmers.add(programmer);
-                    accounts.assignProject(this, programmer.getName());
+                    if (programmer.getSchedule().equals(schedule)) {
+                        programmers.add(programmer);
+                        accounts.assignProject(this, programmer.getName());
+                    }
                 }
             }
         }

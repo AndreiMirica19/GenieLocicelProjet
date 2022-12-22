@@ -69,7 +69,16 @@ class ProgrammerTest {
         assertTrue(programmer.getSkills().contains("Skill"));
     }
 
-    //complex test
+    /**
+     * Complex test
+     * 1. Create a programmer
+     * 2. Create a project
+     * 3. Create a company and add the project to the company
+     * 4.Assign the project to the programmer
+     * 5.Complete tasks
+     * 6.Check how many tasks were completed
+     */
+
     @Test
     void completeTask() {
         Programmer programmer = new Programmer();
