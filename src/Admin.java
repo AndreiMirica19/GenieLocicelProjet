@@ -36,7 +36,7 @@ public class Admin extends Compte {
         comptes.ajouterEntreprise(enterprise);
     }
 
-    public void addAdmin(Admin admin) {
+    public void ajouterAdmin(Admin admin) {
         comptes.ajouterAdmin(admin);
     }
 

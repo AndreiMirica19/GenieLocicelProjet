@@ -4,39 +4,40 @@ public class Commands {
     private ArrayList<String> mainMenuCommands = new ArrayList<String>();
     private ArrayList<String> loginCommands = new ArrayList<String>();
     private ArrayList<String> adminCommands = new ArrayList<String>();
-    private ArrayList<String> adminModdifyCommands = new ArrayList<String>();
-    private ArrayList<String> modifyProgrammerComands = new ArrayList<>();
-    private ArrayList<String> modifyCompanyCommands = new ArrayList<>();
-    private ArrayList<String> companyMenuCommands = new ArrayList<>();
-    private ArrayList<String> projectMenuCommands = new ArrayList<>();
-    private ArrayList<String> modifyProjectCommands = new ArrayList<>();
-    private ArrayList<String> programmerMenuCommands = new ArrayList<>();
+    private ArrayList<String> modifierAdminCommands = new ArrayList<String>();
+    private ArrayList<String> modifierProgrammerComands = new ArrayList<>();
+    private ArrayList<String> modifierCompanyCommands = new ArrayList<>();
+    private ArrayList<String> menuDeEntrepriseCommands = new ArrayList<>();
+    private ArrayList<String> menuDuProjetCommands = new ArrayList<>();
+    private ArrayList<String> modifierProjectCommands = new ArrayList<>();
+    private ArrayList<String> menuDeProgrammeurCommands = new ArrayList<>();
+
 
     public Commands() {
-        addAdminCommands();
-        addLoginCommands();
-        addMainMenuCommands();
-        addAdminModifyCommands();
-        addModifyProgrammerCommands();
-        addModifyCompanyCommands();
-        addCompanyMenuCommands();
-        addProjectMenuCommands();
-        addModifyProjectCommands();
-        addProgrammerMenuCommands();
+        ajouterAdminCommands();
+        ajouterLoginCommands();
+        ajouterMainMenuCommands();
+        ajouterModifierAdminCommands();
+        ajouterModifierProgrammerComands();
+        ajouterModifierCompanyCommands();
+        ajouterMenuDeEntrepriseCommands();
+        ajouterMenuDuProjetCommands();
+        ajouterModifierProjectCommands();
+        ajouterMenuDeProgrammeurCommands();
     }
 
-    private void addMainMenuCommands() {
+    private void ajouterMainMenuCommands() {
         mainMenuCommands.add("Type login to enter your account");
         mainMenuCommands.add("Type quit to quit");
     }
 
-    private void addLoginCommands() {
+    private void ajouterLoginCommands() {
         loginCommands.add("Type login to enter email and password");
         loginCommands.add("Type back to go back to the main menu");
         loginCommands.add("Type quit to quit");
     }
 
-    private void addAdminCommands() {
+    private void ajouterAdminCommands() {
         adminCommands.add("Type add to add a programmer");
         adminCommands.add("Type list to see the list of programmers");
         adminCommands.add("Type create to create an account");
@@ -45,62 +46,62 @@ public class Commands {
         adminCommands.add("Type quit to quit");
     }
 
-    private void addAdminModifyCommands() {
-        adminModdifyCommands.add("Type modify to modify the details of an account");
-        adminModdifyCommands.add("Type password to reset password");
-        adminModdifyCommands.add("Type delete to delete an account");
-        adminModdifyCommands.add("Type back to go back");
+    private void ajouterModifierAdminCommands() {
+        modifierAdminCommands.add("Type modify to modify the details of an account");
+        modifierAdminCommands.add("Type password to reset password");
+        modifierAdminCommands.add("Type delete to delete an account");
+        modifierAdminCommands.add("Type back to go back");
     }
 
-    private void addModifyProgrammerCommands() {
-        modifyProgrammerComands.add("Type name to change name");
-        modifyProgrammerComands.add("Type country to change country");
-        modifyProgrammerComands.add("Type city to change city");
-        modifyProgrammerComands.add("Type schedule to change schedule");
-        modifyProgrammerComands.add("Type back to go back");
+    private void ajouterModifierProgrammerComands() {
+        modifierProgrammerComands.add("Type name to change name");
+        modifierProgrammerComands.add("Type country to change country");
+        modifierProgrammerComands.add("Type city to change city");
+        modifierProgrammerComands.add("Type schedule to change schedule");
+        modifierProgrammerComands.add("Type back to go back");
 
     }
 
-    private void addModifyCompanyCommands() {
-        modifyCompanyCommands.add("Type name to change name");
-        modifyCompanyCommands.add("Type country to change country");
-        modifyCompanyCommands.add("Type city to change city");
+    private void ajouterModifierCompanyCommands() {
+        modifierCompanyCommands.add("Type name to change name");
+        modifierCompanyCommands.add("Type country to change country");
+        modifierCompanyCommands.add("Type city to change city");
     }
 
-    private void addCompanyMenuCommands() {
-        companyMenuCommands.add("Type project to see/edit details about a project");
-        companyMenuCommands.add("Type add to add a project");
-        companyMenuCommands.add("Type list to display the list of projects");
-        companyMenuCommands.add("Type delete to delete a project");
-        companyMenuCommands.add("Type logout to logout");
-        companyMenuCommands.add("Type quit to quit");
+    private void ajouterMenuDeEntrepriseCommands() {
+        menuDeEntrepriseCommands.add("Type project to see/edit details about a project");
+        menuDeEntrepriseCommands.add("Type add to add a project");
+        menuDeEntrepriseCommands.add("Type list to display the list of projects");
+        menuDeEntrepriseCommands.add("Type delete to delete a project");
+        menuDeEntrepriseCommands.add("Type logout to logout");
+        menuDeEntrepriseCommands.add("Type quit to quit");
     }
 
-    private void addProjectMenuCommands() {
-        projectMenuCommands.add("Type modify to modify the project");
-        projectMenuCommands.add("Type display to display the programmers");
-        projectMenuCommands.add("Type status to view the status of a project");
-        projectMenuCommands.add("Type back to go back");
+    private void ajouterMenuDuProjetCommands() {
+        menuDuProjetCommands.add("Type modify to modify the project");
+        menuDuProjetCommands.add("Type display to display the programmers");
+        menuDuProjetCommands.add("Type status to view the status of a project");
+        menuDuProjetCommands.add("Type back to go back");
     }
 
-    private void addModifyProjectCommands() {
-        modifyProjectCommands.add("Type name to change name");
-        modifyProjectCommands.add("Type budget to change budget");
-        modifyProjectCommands.add("Type deadline to change deadline");
-        modifyProjectCommands.add("Type back to go back");
+    private void ajouterModifierProjectCommands() {
+        modifierProjectCommands.add("Type name to change name");
+        modifierProjectCommands.add("Type budget to change budget");
+        modifierProjectCommands.add("Type deadline to change deadline");
+        modifierProjectCommands.add("Type back to go back");
     }
 
-    private void addProgrammerMenuCommands() {
-        programmerMenuCommands.add("Type status to view the status of the project");
-        programmerMenuCommands.add("Type task to execute a task");
-        programmerMenuCommands.add("Type add to add new skills");
-        programmerMenuCommands.add("Type list to display the list of skills");
-        programmerMenuCommands.add("Type logout to logout");
-        programmerMenuCommands.add("Type quit to quit");
+    private void ajouterMenuDeProgrammeurCommands() {
+        menuDeProgrammeurCommands.add("Type status to view the status of the project");
+        menuDeProgrammeurCommands.add("Type task to execute a task");
+        menuDeProgrammeurCommands.add("Type add to add new skills");
+        menuDeProgrammeurCommands.add("Type list to display the list of skills");
+        menuDeProgrammeurCommands.add("Type logout to logout");
+        menuDeProgrammeurCommands.add("Type quit to quit");
     }
 
-    public ArrayList<String> getProjectMenuCommands() {
-        return projectMenuCommands;
+    public ArrayList<String> getMenuDuProjetCommands() {
+        return menuDuProjetCommands;
     }
 
     public ArrayList<String> getMainMenuCommands() {
@@ -115,23 +116,27 @@ public class Commands {
         return adminCommands;
     }
 
-    public ArrayList<String> getProgrammerMenuCommands() {
-        return programmerMenuCommands;
+    public ArrayList<String> getMenuDeProgrammeurCommands() {
+        return menuDeProgrammeurCommands;
     }
 
-    public ArrayList<String> getAdminModdifyCommands() {
-        return adminModdifyCommands;
+    public ArrayList<String> getModifierAdminCommands() {
+        return modifierAdminCommands;
     }
 
-    public ArrayList<String> getModifyProgrammerComands() {
-        return modifyProgrammerComands;
+    public ArrayList<String> getModifierProgrammerComands() {
+        return modifierProgrammerComands;
     }
 
-    public ArrayList<String> getModifyCompanyCommands() {
-        return modifyCompanyCommands;
+    public ArrayList<String> getModifierCompanyCommands() {
+        return modifierCompanyCommands;
     }
 
-    public ArrayList<String> getCompanyMenuCommands() {
-        return companyMenuCommands;
+    public ArrayList<String> getMenuDeEntrepriseCommands() {
+        return menuDeEntrepriseCommands;
+    }
+
+    public ArrayList<String> getModifierProjectCommands() {
+        return modifierProjectCommands;
     }
 }

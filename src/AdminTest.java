@@ -59,7 +59,7 @@ class AdminTest {
         Admin admin2 = new Admin();
         admin2.setNom("admin2");
         admin2.setMot("admin2");
-        admin.addAdmin(admin2);
+        admin.ajouterAdmin(admin2);
         assertEquals("admin2", Comptes.getInstance().getAdmins().get(0).getNom());
     }
 
@@ -196,7 +196,7 @@ class AdminTest {
         Admin admin2 = new Admin();
         admin2.setNom("admin2");
         admin2.setMot("admin2");
-        admin.addAdmin(admin2);
+        admin.ajouterAdmin(admin2);
         admin.effacerAccount("admin2");
         assertFalse(Comptes.getInstance().getAdmins().contains(admin2));
         assertTrue(Comptes.getInstance().getAdmins().contains(admin));

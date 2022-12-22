@@ -102,8 +102,9 @@ public class Projet {
         for (Programmeur programmeur : comptes.getProgrammeurs()) {
             if (!programmeur.isAssignee()) {
                 if (!Collections.disjoint(skills, programmeur.getSkills()) && programmeurs.size() < nombreDeProgrammeurs) {
-                    programmeur.assignProject(this);
-                    if (programmeur.getHoraire().equals(horaire)) {
+                    if (programmeur.getHoraire().getHeureDebut().equals(horaire.getHeureDebut())
+                            && programmeur.getHoraire().getHeureFin().equals(horaire.getHeureFin())
+                            && programmeur.getHoraire().getTimezone().equals(horaire.getTimezone())) {
                         programmeurs.add(programmeur);
                         comptes.attribuerProject(this, programmeur.getNom());
                     }

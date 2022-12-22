@@ -21,15 +21,15 @@ public class Main {
             System.out.print("Please enter a command: ");
             String command = scanner.nextLine();
             switch (command) {
-                case "info" -> displayInfo(commands.getMainMenuCommands());
+                case "info" -> afficherInfo(commands.getMainMenuCommands());
                 case "quit" -> quit = true;
-                case "login" -> displayLoginMenu();
+                case "login" -> afficherLoginMenu();
             }
         }
 
     }
 
-    public static void displayInfo(ArrayList<String> info) {
+    public static void afficherInfo(ArrayList<String> info) {
         System.out.println();
         System.out.println("Available commands:");
 
@@ -39,7 +39,7 @@ public class Main {
         System.out.println();
     }
 
-    public static void displayLoginMenu() {
+    public static void afficherLoginMenu() {
         Scanner scanner = new Scanner(System.in);
         boolean back = false;
         System.out.println("Login menu. Type info to see the commands");
@@ -48,7 +48,7 @@ public class Main {
             System.out.print("Please enter a  login command: ");
             String command = scanner.nextLine();
             switch (command) {
-                case "info" -> displayInfo(commands.getLoginCommands());
+                case "info" -> afficherInfo(commands.getLoginCommands());
                 case "quit" -> quit = true;
                 case "login" -> login();
                 case "back" -> {
@@ -71,14 +71,14 @@ public class Main {
 
             switch (comptes.getTypeDuCompte(username, password)) {
                 case Admin -> {
-                    displayAdminMenu();
+                    afficherAdminMenu();
                     back = true;
                 }
                 case Enterprise -> {
-                    displayCompanyMenu();
+                    afficherEntrepriseMenu();
                 }
                 case Programmeur -> {
-                    displayProgrammerMenu();
+                    afficherMenuDeProgrammeur();
                 }
                 case NonAutorisé -> {
                     System.out.println("Incorrect Credentials, try again?");
@@ -94,7 +94,7 @@ public class Main {
 
     }
 
-    public static void displayAdminMenu() {
+    public static void afficherAdminMenu() {
         System.out.println("Admin menu.Type info to see the commands");
         boolean logout = false;
         Scanner scanner = new Scanner(System.in);
@@ -105,11 +105,11 @@ public class Main {
             System.out.print("Please enter an Admin menu command: ");
             String command = scanner.nextLine();
             switch (command) {
-                case "info" -> displayInfo(commands.getAdminCommands());
-                case "add" -> addProgrammer();
+                case "info" -> afficherInfo(commands.getAdminCommands());
+                case "add" -> ajouterProgrammeur();
                 case "list" -> admin.afficherProgrammers();
-                case "create" -> createAccount();
-                case "modify" -> displayModifyMenu();
+                case "create" -> createCompte();
+                case "modify" -> afficheModifyMenu();
                 case "logout" -> logout = true;
                 case "quit" -> quit = true;
                 default -> System.out.println("Unknown command.Please try again");
@@ -117,7 +117,7 @@ public class Main {
         }
     }
 
-    public static void addProgrammer() {
+    public static void ajouterProgrammeur() {
         Programmeur programmeur = new Programmeur();
         Scanner scanner = new Scanner(System.in);
         Admin admin =  comptes.getAdmin();
@@ -168,19 +168,19 @@ public class Main {
         System.out.println("Programmer successfully added");
     }
 
-    public static void createAccount() {
+    public static void createCompte() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Choose one of the following type: admin, company, programmer");
         String accountType = scanner.nextLine();
 
         switch (accountType) {
-            case "programmer" -> addProgrammer();
-            case "company" -> addCompany();
-            case "admin" -> addAdmin();
+            case "programmer" -> ajouterProgrammeur();
+            case "company" -> ajouterEntreprise();
+            case "admin" -> ajouterAdmin();
         }
     }
 
-    public static void addCompany() {
+    public static void ajouterEntreprise() {
         Scanner scanner = new Scanner(System.in);
         Enterprise enterprise = new Enterprise();
         Admin admin =  comptes.getAdmin();
@@ -207,7 +207,7 @@ public class Main {
 
     }
 
-    public static void addAdmin() {
+    public static void ajouterAdmin() {
         Scanner scanner = new Scanner(System.in);
         Admin currentAdmin =  comptes.getAdmin();
         Admin admin = new Admin();
@@ -222,11 +222,11 @@ public class Main {
         String password = scanner.nextLine();
         admin.setMot(password);
 
-        currentAdmin.addAdmin(admin);
+        currentAdmin.ajouterAdmin(admin);
         System.out.println("Admin successfully added");
     }
 
-    public static void displayModifyMenu() {
+    public static void afficheModifyMenu() {
         System.out.println("Modify menu.Type info to see the commands");
         Scanner scanner = new Scanner(System.in);
         boolean back = false;
@@ -236,15 +236,15 @@ public class Main {
             String command = scanner.nextLine();
 
             switch (command) {
-                case "modify" -> modifyAccount();
-                case "password" -> resetPassword();
-                case "delete" -> deleteAccount();
+                case "modify" -> modifierAccount();
+                case "password" -> resetMotDePasse();
+                case "delete" -> effacerCompte();
                 case "back" -> back = true;
             }
         }
     }
 
-    public static void modifyAccount() {
+    public static void modifierAccount() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Please enter the username: ");
         String username = scanner.nextLine();
@@ -253,10 +253,10 @@ public class Main {
         Compte compte = currentAdmin.modifierCompte(username);
 
         if (compte instanceof Programmeur) {
-            modifyProgrammer((Programmeur) compte);
+            modifierProgrammer((Programmeur) compte);
         } else {
             if (compte instanceof Enterprise) {
-                modifyCompany((Enterprise) compte);
+                modifierEntreprise((Enterprise) compte);
             } else {
                 if (compte instanceof Admin) {
 
@@ -265,7 +265,7 @@ public class Main {
         }
     }
 
-    public static void modifyProgrammer(Programmeur programmeur) {
+    public static void modifierProgrammer(Programmeur programmeur) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Type info to see the which details can be changed");
         boolean back = false;
@@ -313,7 +313,7 @@ public class Main {
         currentAdmin.ajouterProgrammer(programmeur);
     }
 
-    public static void modifyCompany(Enterprise enterprise) {
+    public static void modifierEntreprise(Enterprise enterprise) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Type info to see the which details can be changed");
         boolean back = false;
@@ -348,7 +348,7 @@ public class Main {
         currentAdmin.ajouterEntreprise(enterprise);
     }
 
-    public static void resetPassword() {
+    public static void resetMotDePasse() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Please enter the username: ");
         Admin currentAdmin =  comptes.getAdmin();
@@ -365,14 +365,14 @@ public class Main {
                 currentAdmin.ajouterEntreprise((Enterprise) compte);
             } else {
                 if (compte instanceof Admin) {
-                    currentAdmin.addAdmin((Admin) compte);
+                    currentAdmin.ajouterAdmin((Admin) compte);
                 }
             }
         }
 
     }
 
-    public static void deleteAccount() {
+    public static void effacerCompte() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Type the name");
         String name = scanner.nextLine();
@@ -380,7 +380,7 @@ public class Main {
         admin.effacerAccount(name);
     }
 
-    public static void displayCompanyMenu() {
+    public static void afficherEntrepriseMenu() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Company menu! Type info to see the commands");
         Enterprise enterprise = comptes.getCompany();
@@ -391,18 +391,18 @@ public class Main {
             String command = scanner.nextLine();
 
             switch (command) {
-                case "add" -> addProject();
-                case "project" -> displayProjectMenu();
-                case "info" -> displayInfo(commands.getCompanyMenuCommands());
+                case "add" -> ajouterProject();
+                case "project" -> afficherProjectMenu();
+                case "info" -> afficherInfo(commands.getMenuDeEntrepriseCommands());
                 case "list" -> enterprise.afficherProjects();
-                case "delete" -> deleteProject();
+                case "delete" -> effacerProject();
                 case "logout" -> back = true;
                 case "quit" -> quit = true;
             }
         }
     }
 
-    public static void addProject() {
+    public static void ajouterProject() {
         Scanner scanner = new Scanner(System.in);
         Projet projet = new Projet();
         Enterprise enterprise = comptes.getCompany();
@@ -483,7 +483,7 @@ public class Main {
 
     }
 
-    public static void deleteProject() {
+    public static void effacerProject() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Name of the project: ");
         Enterprise enterprise = comptes.getCompany();
@@ -492,7 +492,7 @@ public class Main {
         System.out.println("Project deleted");
     }
 
-    public static void displayProjectMenu() {
+    public static void afficherProjectMenu() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Please enter the name of the project: ");
         String projectName = scanner.nextLine();
@@ -512,17 +512,17 @@ public class Main {
             String command = scanner.nextLine();
 
             switch (command) {
-                case "modify" -> modifyProject(enterprise.getProject(projectName));
+                case "modify" -> modifierProject(enterprise.getProject(projectName));
                 case "display" -> enterprise.afficherProgrammeursSurProjet(projectName);
                 case "status" -> enterprise.afficherStatusDeProjet(projectName);
-                case "info" -> displayInfo(commands.getProjectMenuCommands());
+                case "info" -> afficherInfo(commands.getMenuDuProjetCommands());
                 case  "back" -> back = true;
 
             }
         }
     }
 
-    public static void modifyProject(Projet projet) {
+    public static void modifierProject(Projet projet) {
         Scanner scanner = new Scanner(System.in);
         Enterprise enterprise = comptes.getCompany();
         enterprise.effacerProject(projet.getNom());
@@ -555,8 +555,9 @@ public class Main {
                     System.out.print("Staff development budget: ");
                     budget.setPersonnelDevelopmentBudget(scanner.nextLine());
                     projet.setBudget(budget);
+                    projet.aficheeInfo();
                 }
-                case "info" -> displayInfo(commands.getProjectMenuCommands());
+                case "info" -> afficherInfo(commands.getModifierProjectCommands());
                 case "back" -> back = true;
             }
         }
@@ -566,7 +567,7 @@ public class Main {
         enterprise.ajouterProject(projet);
     }
 
-    public static void displayProgrammerMenu() {
+    public static void afficherMenuDeProgrammeur() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Programmer menu! Type info to see the commands");
         Programmeur programmeur = comptes.getProgrammer();
@@ -578,7 +579,7 @@ public class Main {
 
             switch (command) {
                 case "add" -> addSkill();
-                case "info" -> displayInfo(commands.getProgrammerMenuCommands());
+                case "info" -> afficherInfo(commands.getMenuDeProgrammeurCommands());
                 case "list" -> programmeur.afficherSkills();
                 case "task" -> programmeur.completeTask();
                 case "status" -> programmeur.aficherStatusDeProjet();
