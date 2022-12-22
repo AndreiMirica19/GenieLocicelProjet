@@ -26,7 +26,9 @@ public class Accounts {
     }
 
     public void addCompany(Company company) {
-        companies.add(company);
+        if (!companies.contains(company)) {
+            companies.add(company);
+        }
     }
 
     public void addAdmin(Admin admin) {
@@ -194,6 +196,7 @@ public class Accounts {
 
     public void completeTask() {
         for (Company company : companies) {
+
             if (company.getName().equals(programmers.get(currentIndex).getCompanyName())) {
                 company.completeTask(programmers.get(currentIndex).getProject().getName());
                 programmers.get(currentIndex).setProject(company.getProject(programmers.get(currentIndex).getProject().getName()));
@@ -212,6 +215,14 @@ public class Accounts {
         }
     }
 
+    public ArrayList<Company> getCompanies() {
+        return companies;
+    }
+
+    public ArrayList<Admin> getAdmins() {
+        return admins;
+    }
+
     public Admin getAdmin() {
         return admins.get(currentIndex);
     }
@@ -224,4 +235,7 @@ public class Accounts {
         return companies.get(currentIndex);
     }
 
+    public void setCurrentIndex(int currentIndex) {
+        this.currentIndex = currentIndex;
+    }
 }
