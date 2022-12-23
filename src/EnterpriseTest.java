@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class EnterpriseTest {
 
-
     @Test
     void setNom() {
         Enterprise enterprise = new Enterprise();

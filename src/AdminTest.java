@@ -64,6 +64,7 @@ class AdminTest {
     }
 
     /**
+     * AUTHOR Steve Ngounou
      * Complex test
      * 1. Create a programmer
      * 2.call modifyAccount(which returns an account)
@@ -156,6 +157,7 @@ class AdminTest {
     }
 
     /**
+     * AUTHOR Mohamed housni ikarkaoun
      * Complex test
      * 1. Create 2 programmers
      * 2. Delete one of them

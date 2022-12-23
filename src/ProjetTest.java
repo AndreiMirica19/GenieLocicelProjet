@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ProjetTest {
 
     /**
+     * AUTHOR: MIRICA ANDREI
      * Complex text
      * 1. Add a company
      * 2.Add a project

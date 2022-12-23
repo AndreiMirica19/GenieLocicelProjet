@@ -70,6 +70,7 @@ class ProgrammeurTest {
     }
 
     /**
+     * AUTHOR  Walid Mansour
      * Complex test
      * 1. Create a programmer
      * 2. Create a project
